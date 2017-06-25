@@ -37,3 +37,6 @@ yarn.lock
 
 # Dist
 dist
+
+# awcache
+.awcache
