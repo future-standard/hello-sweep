@@ -20,6 +20,9 @@ const BrowserSyncPluginConfig = new BrowserSyncPlugin({
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const ProgressBarPluginConfig = new ProgressBarPlugin()
 
+/* Path */
+const path = require('path');
+
 /* Export configuration */
 module.exports = {
   devtool: 'source-map',
@@ -27,26 +30,41 @@ module.exports = {
     './src/index.ts'
   ],
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'index.js'
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.ts$/,
-      loader: 'awesome-typescript-loader'
+      use: 'awesome-typescript-loader'
     }, {
       test: /\.css$/,
       exclude: /[\/\\]src[\/\\]/,
-      loaders: [
-        'style-loader?sourceMap',
-        'css-loader'
+      use: [
+        { 
+          loader: 'css-loader'
+        },
+        {
+          loader: 'style-loader',
+          options: 'sourceMap'
+        }
       ]
     }, {
       test: /\.css$/,
       exclude: /[\/\\](node_modules|bower_components|public)[\/\\]/,
-      loaders: [
-        'style-loader?sourceMap',
-        'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+      use: [
+        {
+          loader: 'style-loader',
+          options: 'sourceMap'
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+          }
+        }
       ]
     }]
   },
