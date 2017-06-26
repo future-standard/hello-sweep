@@ -4,3 +4,13 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+
+.textField {
+	color: whitesmoke;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: left;
+	z-index: 100;
+	display:block;
+}

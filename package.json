@@ -23,6 +23,7 @@
     "webpack-dev-server": "latest"
   },
   "dependencies": {
+    "@types/node": "^8.0.2",
     "@types/three": "latest",
     "three": "latest"
   },
