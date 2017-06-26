@@ -40,15 +40,15 @@ camera.position.z = 0
 
 camera.lookAt(scene.position)
 
-function animate(): void {
+const render = (): void => {
+	let timer = 0.002 * Date.now()
+	renderer.render(scene, camera)
+}
+
+const animate = (): void => {
 	requestAnimationFrame(animate)
 	controls.update();
 	render()
-}
-
-function render(): void {
-	let timer = 0.002 * Date.now()
-	renderer.render(scene, camera)
 }
 
 animate()
