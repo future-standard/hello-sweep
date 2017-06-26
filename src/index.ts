@@ -93,7 +93,7 @@ ws.onmessage = evt => {
 		let sphere = new THREE.Mesh(                                        
 			new THREE.SphereGeometry( 2, 50, 50 ),            
 			new THREE.MeshPhongMaterial({                                      
-				color: 0xFF0000
+				color: 0xFF0000 + msg.signal
 			})
 		);
 		scene.add(sphere);      
