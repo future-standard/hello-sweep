@@ -28,9 +28,6 @@ scene.add(light2)
 
 let grid = new THREE.GridHelper(1000, 10, new THREE.Color(0x0000ff));
 scene.add(grid);
-     
-//シーンオブジェクトに追加
-scene.add(grid);     
 
 let material = new THREE.MeshBasicMaterial({
 	color: 0xaaaaaa,
