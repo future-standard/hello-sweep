@@ -1,6 +1,9 @@
 // add styles
 const styles = require('./style.css');
 
+// user-defined type
+import { DeviceStatus } from "./deviceStatus";
+
 // three.js
 import * as THREE from 'three'
 import 'imports-loader?THREE=three!../node_modules/three/examples/js/controls/OrbitControls.js'
@@ -109,14 +112,21 @@ ws.onmessage = evt => {
 		const textField = document.createElement('div');
 		textField.classList.add(styles.textField);
 
-		[msg.ready, msg.speed, msg.rate]
-		.map((v, i) => {
+		const title = document.createElement('h1');
+		title.textContent = 'Device Status'
+		textField.appendChild(title);
+
+		// Set device status to text field.
+		const statuses = [
+			new DeviceStatus("ready (boolean)", msg.ready),
+			new DeviceStatus("speed (1~10)", msg.speed),
+			new DeviceStatus("sampling rate [Hz]", msg.rate)
+		];
+
+		statuses.forEach(s => {
 			const p = document.createElement('p');
-			p.textContent = Object.keys(msg)[i] + ': ' + v; // This method is bad. Fix later.
-			return p;
-		})
-		.forEach(v => {
-			textField.appendChild(v);
+			p.textContent = s.displayName + ': ' + s.status;
+			textField.appendChild(p);
 		});
 
 		document.body.appendChild(textField);
