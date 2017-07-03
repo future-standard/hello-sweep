@@ -72,7 +72,7 @@ const removeFromScene = (mesh: THREE.Mesh) => {
 	mesh = undefined;
 }
 
-let spheres = [];
+let dots = [];
 
 ws.onmessage = evt => {
   let msg = JSON.parse(evt.data);
@@ -82,23 +82,20 @@ ws.onmessage = evt => {
 
 	// Reset last result
 	if (msg.removeFromScene) {
-		spheres.forEach(s => {
+		dots.forEach(s => {
 			removeFromScene(s);
 		});
-		spheres　= [];
+		dots　= [];
 	}
 
 	// Plot point
 	if (x && y) {
-		let sphere = new THREE.Mesh(                                        
-			new THREE.SphereGeometry( 2, 50, 50 ),            
-			new THREE.MeshPhongMaterial({                                      
-				color: 0xFF0000 + msg.signal
-			})
-		);
-		scene.add(sphere);      
-		sphere.position.set(x, 0, y); // y to z
-		spheres.push(sphere);
+		const dotGeometry = new THREE.Geometry();
+		dotGeometry.vertices.push(new THREE.Vector3(x, 0, y));
+		const dotMaterial = new THREE.PointsMaterial( { size: 3, sizeAttenuation: false } );
+		const dot = new THREE.Points( dotGeometry, dotMaterial );
+		scene.add(dot);      
+		dots.push(dot);
 	}
 
 	// Device status
