@@ -1,0 +1,13 @@
+{
+  "name": "sweep-ws-server",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ws": "^1.1"
+  }
+}

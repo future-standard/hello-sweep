@@ -1,32 +1,21 @@
 {
   "name": "hello-sweep",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sweep SDK(sweepjs) sample application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --inline --open"
+    "start": "run-p start:server start:visualizer",
+    "start:server": "cd ./server && npm start",
+    "start:visualizer": "cd ./visualizer && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "awesome-typescript-loader": "latest",
-    "browser-sync": "latest",
-    "browser-sync-webpack-plugin": "latest",
-    "css-loader": "latest",
-    "extract-text-webpack-plugin": "latest",
-    "html-webpack-plugin": "latest",
-    "imports-loader": "^0.7.1",
-    "json-loader": "latest",
-    "progress-bar-webpack-plugin": "latest",
-    "style-loader": "latest",
-    "typescript": "latest",
-    "webpack": "latest",
-    "webpack-dev-server": "latest"
-  },
-  "dependencies": {
-    "@types/node": "^8.0.2",
-    "@types/three": "latest",
-    "three": "latest"
-  },
+  "keywords": [
+    "webpack",
+    "typescript",
+    "three.js"
+  ],
   "author": "e_ntyo",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.0.2"
+  }
 }
