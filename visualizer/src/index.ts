@@ -62,6 +62,11 @@ const deg2rad = degrees => {
   return degrees * kDegreeToRadian;
 };
 
+// Web Audio
+const audioctx = new AudioContext();
+const osc = audioctx.createOscillator();
+osc.connect(audioctx.destination);
+  
 // Websocket
 const ws = new WebSocket('ws://localhost:5000');
 
@@ -127,6 +132,19 @@ ws.onmessage = evt => {
 		});
 
 		document.body.appendChild(textField);
+
+		// Play a good sound
+		let nearestDot = dots.sort((a, b) => {
+			const bboxA = new THREE.Box3().setFromObject(a);
+			const bboxB = new THREE.Box3().setFromObject(b);
+			let toA: number = bboxA.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+			let toB: number = bboxB.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+			return toA - toB
+		})[0];
+		console.log(nearestDot);
+		const bbox = new THREE.Box3().setFromObject(nearestDot);
+		osc.frequency.value = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0)) * 10;
+		osc.start();
 	}
 
 };
