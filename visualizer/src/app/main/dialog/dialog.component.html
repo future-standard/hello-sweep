@@ -1,0 +1,9 @@
+<div class="dialog">
+  <h1>Sweep Thermin</h1>
+  <div class="status" *ngIf="status">
+    <h2>Device Status</h2>
+    <p>ready (boolean): {{status.ready}}</p>
+    <p>speed (1-10): {{status.speed}}</p>
+    <p>sampling rate [Hz]: {{status.rate}}</p>
+  </div>
+</div>
