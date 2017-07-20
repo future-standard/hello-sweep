@@ -1,9 +1,30 @@
 <div class="dialog">
-  <h1>Sweep Thermin</h1>
-  <div class="status" *ngIf="status">
+  <div class="container">
+    <h1>Sweep Thermin</h1>
     <h2>Device Status</h2>
-    <p>ready (boolean): {{status.ready}}</p>
-    <p>speed (1-10): {{status.speed}}</p>
-    <p>sampling rate [Hz]: {{status.rate}}</p>
+    <div class="status" *ngIf="status">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Device Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">ready</th>
+            <td>{{status.ready}}</td>
+          </tr>
+          <tr>
+            <th scope="row">speed(1-10)</th>
+            <td>{{status.speed}}</td>
+          </tr>
+          <tr>
+            <th scope="row">sampling rate (Hz)</th>
+            <td>{{status.rate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
