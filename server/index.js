@@ -1,7 +1,7 @@
 // Require SDK module
 if (!process.env.SWEEPJS_DIR) {
   console.log("Please specify sweepjs install directory.\n\
-               i.e.) env SWEEPJS=$HOME/sweep-sdk/sweepjs npm start\n");
+               i.e.) env SWEEPJS_DIR=$HOME/sweep-sdk/sweepjs npm start\n");
   process.exit(1);
 }
 
