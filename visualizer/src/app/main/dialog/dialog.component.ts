@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { DeviceStatus } from "../../../models/devicestatus";
 import { SoundStatus } from "../../../models/soundstatus";
 

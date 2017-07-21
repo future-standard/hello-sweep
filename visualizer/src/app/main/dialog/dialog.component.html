@@ -38,11 +38,11 @@
         <tbody>
           <tr>
             <th scope="row">Frequency(Hz)</th>
-            <td>{{soundStatus.frequency}}</td>
+            <td>{{soundStatus.frequency | number: '1.0'}}</td>
           </tr>
           <tr>
             <th scope="row">Distance from the point to sweep(cm)</th>
-            <td>{{soundStatus.distance}}</td>
+            <td>{{soundStatus.distance | number:  '1.0'}}</td>
           </tr>
         </tbody>
       </table>
