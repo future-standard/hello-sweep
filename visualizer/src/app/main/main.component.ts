@@ -112,12 +112,11 @@ export class MainComponent {
           let toB: number = bboxB.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
           return toA - toB
         })[0];
-        console.log(nearestDot);
         const bbox = new THREE.Box3().setFromObject(nearestDot);
 
         const dist = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
         const freq = dist * 10;
-        this.soundStatus = new SoundStatus(dist, freq);
+        this.soundStatus = new SoundStatus(freq, dist);
 
         osc.frequency.value = freq;
       }
