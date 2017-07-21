@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import * as THREE from 'three';
 import { DeviceStatus } from "../../models/devicestatus";
+import { SoundStatus } from "../../models/soundstatus";
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -13,11 +14,12 @@ export class MainComponent {
 
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
 
-  scene:    THREE.Scene;
-  camera:   THREE.Camera;
-  renderer: THREE.WebGLRenderer;
-  controls: THREE.OrbitControls;
-  status:   DeviceStatus;
+  scene:        THREE.Scene;
+  camera:       THREE.Camera;
+  renderer:     THREE.WebGLRenderer;
+  controls:     THREE.OrbitControls;
+  deviceStatus: DeviceStatus;
+  soundStatus:  SoundStatus;
 
   constructor() { }
 
@@ -112,12 +114,17 @@ export class MainComponent {
         })[0];
         console.log(nearestDot);
         const bbox = new THREE.Box3().setFromObject(nearestDot);
-        osc.frequency.value = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0)) * 10;
+
+        const dist = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+        const freq = dist * 10;
+        this.soundStatus = new SoundStatus(dist, freq);
+
+        osc.frequency.value = freq;
       }
 
       // Device status
       if (msg.ready && msg.speed && msg.rate) {
-        this.status = new DeviceStatus(msg.ready, msg.speed, msg.rate);
+        this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
       }
     }
   }

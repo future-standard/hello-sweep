@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DeviceStatus } from "../../../models/devicestatus";
+import { SoundStatus } from "../../../models/soundstatus";
 
 @Component({
   selector: 'app-dialog',
@@ -7,7 +8,8 @@ import { DeviceStatus } from "../../../models/devicestatus";
   styleUrls: ['./dialog.component.css']
 })
 export class DialogComponent {
-  @Input() status: DeviceStatus;
+  @Input() deviceStatus: DeviceStatus;
+  @Input() soundStatus:  SoundStatus;
 
   constructor() { }
 

@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Sweep Thermin</h1>
     <h2>Device Status</h2>
-    <div class="status" *ngIf="status">
+    <div *ngIf="deviceStatus">
       <table class="table">
         <thead>
           <tr>
@@ -13,15 +13,36 @@
         <tbody>
           <tr>
             <th scope="row">ready</th>
-            <td>{{status.ready}}</td>
+            <td>{{deviceStatus.ready}}</td>
           </tr>
           <tr>
             <th scope="row">speed(1-10)</th>
-            <td>{{status.speed}}</td>
+            <td>{{deviceStatus.speed}}</td>
           </tr>
           <tr>
-            <th scope="row">sampling rate (Hz)</th>
-            <td>{{status.rate}}</td>
+            <th scope="row">sampling rate(Hz)</th>
+            <td>{{deviceStatus.rate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>Sound Status</h2>
+    <div *ngIf="soundStatus">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Sound Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Frequency(Hz)</th>
+            <td>{{soundStatus.frequency}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Distance from the point to sweep(cm)</th>
+            <td>{{soundStatus.distance}}</td>
           </tr>
         </tbody>
       </table>
