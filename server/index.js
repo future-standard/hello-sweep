@@ -22,7 +22,7 @@ sweep.startScanning();
 const wss = require('ws').Server({port: 5000});
 
 wss.on('connection', ws => {
-  setInterval(pushScanInto(ws), 50);
+  setInterval(pushScanInto(ws), 200);
 });
 
 const fmod = (a,b) => { 
