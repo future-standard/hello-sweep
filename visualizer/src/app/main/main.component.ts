@@ -105,7 +105,13 @@ export class MainComponent {
         dots.push(dot);
 
         // Change pitch
-        let nearestDot = dots.sort((a, b) => {
+        let nearestDot = dots
+        // Remove dots which are too close to device(center)
+        .filter(dot => {
+          const bbox = new THREE.Box3().setFromObject(dot);
+          return bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0)) > 3;
+        })
+        .sort((a, b) => {
           const bboxA = new THREE.Box3().setFromObject(a);
           const bboxB = new THREE.Box3().setFromObject(b);
           let toA: number = bboxA.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
