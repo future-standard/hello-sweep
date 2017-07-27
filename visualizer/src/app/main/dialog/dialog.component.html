@@ -47,5 +47,8 @@
         </tbody>
       </table>
     </div>
+    <div *ngIf="!deviceStatus && !soundStatus">
+      <p>If any status does not appear for a while, <br>please unplug sweep and restart server program.</p>
+    </div>
   </div>
 </div>
