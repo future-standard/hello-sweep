@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Sweep SDK(sweepjs) sample application",
   "scripts": {
+    "install": "cd ./server && yarn install && cd ../visualizer && yarn install",
     "start": "run-p start:server start:visualizer",
     "start:server": "cd ./server && npm start",
     "start:visualizer": "cd ./visualizer && npm start",
