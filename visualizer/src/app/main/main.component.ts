@@ -20,6 +20,7 @@ export class MainComponent {
   controls:     THREE.OrbitControls;
   deviceStatus: DeviceStatus;
   soundStatus:  SoundStatus;
+  playing = false;
 
   constructor() { }
 
@@ -123,8 +124,11 @@ export class MainComponent {
         const freq = dist * 10;
         this.soundStatus = new SoundStatus(freq, dist);
 
+        if (!this.playing) {
+          osc.start();
+          this.playing = true;
+        }
         osc.frequency.value = freq;
-        osc.start();
       }
 
       // Device status
