@@ -75,7 +75,6 @@ export class MainComponent {
     const audioctx = new AudioContext();
     const osc = audioctx.createOscillator();
     osc.connect(audioctx.destination);
-    osc.start();
 
     // Websocket
     const ws = new WebSocket('ws://localhost:5000');
@@ -101,7 +100,7 @@ export class MainComponent {
         dotGeometry.vertices.push(new THREE.Vector3(x, 0, y));
         const dotMaterial = new THREE.PointsMaterial( { size: 3, sizeAttenuation: false } );
         const dot = new THREE.Points( dotGeometry, dotMaterial );
-        this.scene.add(dot);      
+        this.scene.add(dot);
         dots.push(dot);
 
         // Change pitch
@@ -125,6 +124,7 @@ export class MainComponent {
         this.soundStatus = new SoundStatus(freq, dist);
 
         osc.frequency.value = freq;
+        osc.start();
       }
 
       // Device status
@@ -144,5 +144,5 @@ export class MainComponent {
 	  this.controls.update();
 	  this.render();
   };
-  
+
 }
