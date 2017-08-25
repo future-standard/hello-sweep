@@ -22,21 +22,33 @@ sweep.startScanning();
 const wss = require('ws').Server({port: 5000});
 
 wss.on('connection', ws => {
-  setInterval(pushScanInto(ws), 200);
+  serve(ws);
 });
 
-const fmod = (a,b) => { 
-  return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); 
+const serve = ws => {
+  pushScanInto(ws)
+  .then(() => serve(ws))
+  .catch(e => console.log(e));
+};
+
+const fmod = (a,b) => {
+  return Number((a - (Math.floor(a / b) * b)).toPrecision(8));
 };
 
 // Websocket
 const pushScanInto = ws => {
-  return () => {
-    
-    sweep.scan((err, samples) => {
-      if (err) return;
+  return new Promise((resolve, reject) => {
+    sweep.scan((error, samples) => {
+      if (error) {
+        reject(error);
+      }
 
-      ws.send(JSON.stringify({removeFromScene: true}), error => {});
+      ws.send(JSON.stringify({removeFromScene: true}), error => {
+        if (error) {
+          reject(error);
+        }
+      });
+
       samples.forEach((sample) => {
         const message = {
           ready: ready,
@@ -47,8 +59,14 @@ const pushScanInto = ws => {
           signal: sample.signal,
           removeFromScene: false
         };
-        ws.send(JSON.stringify(message), error => {/**/});
+        ws.send(JSON.stringify(message), error => {
+          if (error) {
+            reject(error);
+          }
+        });
       });
+      resolve();
+
     });
-  };
-}
+  });
+};
