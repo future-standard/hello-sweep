@@ -118,6 +118,10 @@ export class MainComponent {
           let toB: number = bboxB.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
           return toA - toB
         })[0];
+
+        if (!nearestDot) {
+          return;
+        }
         const bbox = new THREE.Box3().setFromObject(nearestDot);
 
         const dist = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
