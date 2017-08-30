@@ -1,0 +1,29 @@
+<div class="sound card">
+  <div class="card-body">
+    <h2 class="card-title">Sound</h2>
+    <h3 class="card-subtitle mb-2 text-muted">Status</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Frequency(Hz)</th>
+          <td>{{status.frequency | number: '1.0'}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Distance from the point to sweep(cm)</th>
+          <td>{{status.distance | number:  '1.0'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="card-subtitle mb-2 text-muted">Change settings</h3>
+    <div class="volume">
+      <label for="sound-volume">Volume</label>
+      <input type="range" id="sound-volume">
+    </div>
+  </div>
+</div>

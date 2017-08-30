@@ -17,6 +17,7 @@
   "author": "e_ntyo",
   "license": "ISC",
   "devDependencies": {
-    "npm-run-all": "^4.0.2"
+    "npm-run-all": "^4.0.2",
+    "popper.js": "^1.12.3"
   }
 }

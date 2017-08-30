@@ -1,0 +1,48 @@
+<div class="device card">
+  <div class="card-body">
+    <h2 class="card-title">Device</h2>
+    <h3 class="card-subtitle mb-2 text-muted">Status</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">ready</th>
+          <td>{{status.ready}}</td>
+        </tr>
+        <tr>
+          <th scope="row">speed(1-10)</th>
+          <td>{{status.speed}}</td>
+        </tr>
+        <tr>
+          <th scope="row">sampling rate(Hz)</th>
+          <td>{{status.rate}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="card-subtitle mb-2 text-muted">Change settings</h3>
+    <select class="custom-select">
+      <option selected>Sampling Rate</option>
+      <option value="500">500[Hz] (default)</option>
+      <option value="750">750[Hz]</option>
+      <option value="1000">1000[Hz]</option>
+    </select>
+    <select class="custom-select">
+      <option selected>Speed</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (default)</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
+</div>

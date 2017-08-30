@@ -1,0 +1,15 @@
+
+.card {
+  margin-bottom: 1.5rem;
+  background-color: #222222;
+}
+
+.volume {
+  display: flex;
+  align-items: flex-start;
+}
+
+.volume label {
+  margin-right: 0.5rem;
+}
+

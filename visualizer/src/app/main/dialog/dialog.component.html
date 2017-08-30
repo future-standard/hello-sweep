@@ -1,52 +1,8 @@
 <div class="dialog">
   <div class="container">
     <h1>Sweep Thermin</h1>
-    <div *ngIf="deviceStatus">
-      <h2>Device Status</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Device Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">ready</th>
-            <td>{{deviceStatus.ready}}</td>
-          </tr>
-          <tr>
-            <th scope="row">speed(1-10)</th>
-            <td>{{deviceStatus.speed}}</td>
-          </tr>
-          <tr>
-            <th scope="row">sampling rate(Hz)</th>
-            <td>{{deviceStatus.rate}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div *ngIf="soundStatus">
-      <h2>Sound Status</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Sound Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Frequency(Hz)</th>
-            <td>{{soundStatus.frequency | number: '1.0'}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Distance from the point to sweep(cm)</th>
-            <td>{{soundStatus.distance | number:  '1.0'}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <app-device *ngIf="deviceStatus" [status]="deviceStatus"></app-device>
+    <app-sound *ngIf="soundStatus" [status]="soundStatus"></app-sound>
     <div *ngIf="!deviceStatus && !soundStatus">
       <p>If any status does not appear for a while, <br>please unplug sweep and restart server program.</p>
     </div>
