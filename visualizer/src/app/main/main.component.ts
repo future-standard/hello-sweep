@@ -136,9 +136,7 @@ export class MainComponent {
       }
 
       // Device status
-      if (msg.ready && msg.speed && msg.rate) {
-        this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
-      }
+      this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
     }
   }
 
