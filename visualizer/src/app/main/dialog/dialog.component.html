@@ -1,10 +1,16 @@
-<div class="dialog">
+<div class="dialog" [ngClass]="{'hide-dialog': selectedMode!=='dialog'}">
   <div class="container">
-    <h1>Sweep Thermin</h1>
-    <app-device *ngIf="deviceStatus" [status]="deviceStatus"></app-device>
-    <app-sound *ngIf="soundStatus" [status]="soundStatus"></app-sound>
-    <div *ngIf="!deviceStatus && !soundStatus">
-      <p>If any status does not appear for a while, <br>please unplug sweep and restart server program.</p>
+    <div *ngIf="selectedMode==='dialog'">
+      <h1>Sweep Thermin</h1>
+      <button type="button" class="btn btn-secondary" (click)="onClick()">Hide this dialog</button>
+      <app-device *ngIf="deviceStatus" [status]="deviceStatus"></app-device>
+      <app-sound *ngIf="soundStatus" [status]="soundStatus"></app-sound>
+      <div *ngIf="!deviceStatus && !soundStatus">
+        <p>If any status does not appear for a while, <br>please unplug sweep and restart server program.</p>
+      </div>
+    </div>
+    <div *ngIf="selectedMode==='visualizer'">
+        <button type="button" class="btn btn-secondary" (click)="onClick()">Show dialog</button>
     </div>
   </div>
 </div>

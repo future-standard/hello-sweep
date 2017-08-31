@@ -12,6 +12,15 @@ export class DialogComponent {
   @Input() deviceStatus: DeviceStatus;
   @Input() soundStatus:  SoundStatus;
 
-  constructor() { }
+  private selectedMode = 'dialog';
+  private notSelectedMode = 'visualizer';
+
+  constructor() {}
+
+  onClick() {
+    const notSelectedMode = this.notSelectedMode;
+    this.notSelectedMode = this.selectedMode;
+    this.selectedMode = notSelectedMode;
+  }
 
 }

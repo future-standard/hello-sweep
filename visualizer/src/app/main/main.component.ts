@@ -46,7 +46,7 @@ export class MainComponent {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
 
-    this.controls = new OrbitControls(this.camera); // Add orbit controll function
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement); // Add orbit controll function
 
     let axis = new THREE.AxisHelper(10);
     this.scene.add(axis);
