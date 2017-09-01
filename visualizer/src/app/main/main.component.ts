@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import * as THREE from 'three';
 import { DeviceStatus } from "../../models/devicestatus";
 import { SoundStatus } from "../../models/soundstatus";
+import { SweepService } from "../sweep.service";
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -22,7 +23,7 @@ export class MainComponent {
   soundStatus:  SoundStatus;
   playing = false;
 
-  constructor() { }
+  constructor(public sweep: SweepService) { }
 
   removeFromScene(mesh: THREE.Mesh) {
     this.scene.remove(mesh);
@@ -77,13 +78,8 @@ export class MainComponent {
     const osc = audioctx.createOscillator();
     osc.connect(audioctx.destination);
 
-    // Websocket
-    const ws = new WebSocket('ws://localhost:5000');
     let dots = [];
-
-    ws.onmessage = evt => {
-      let msg = JSON.parse(evt.data);
-
+    this.sweep.msg.subscribe(msg => {
 	    const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
 	    const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
 
@@ -137,7 +133,7 @@ export class MainComponent {
 
       // Device status
       this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
-    }
+    });
   }
 
   render() {
