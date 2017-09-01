@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { DeviceStatus } from "../../models/devicestatus";
 import { SoundStatus } from "../../models/soundstatus";
 import { SweepService } from "../sweep.service";
+import { AudioService } from "../audio.service";
+import 'rxjs/add/operator/first';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -21,9 +23,8 @@ export class MainComponent {
   controls:     THREE.OrbitControls;
   deviceStatus: DeviceStatus;
   soundStatus:  SoundStatus;
-  playing = false;
 
-  constructor(public sweep: SweepService) { }
+  constructor(public sweep: SweepService, public audio: AudioService) { }
 
   removeFromScene(mesh: THREE.Mesh) {
     this.scene.remove(mesh);
@@ -73,12 +74,8 @@ export class MainComponent {
     // animation start
     this.animate();
 
-    // Web Audio API
-    const audioctx = new AudioContext();
-    const osc = audioctx.createOscillator();
-    osc.connect(audioctx.destination);
-
     let dots = [];
+    this.sweep.msg.first(msg => msg.degree && msg.distance, this.audio.play());
     this.sweep.msg.subscribe(msg => {
 	    const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
 	    const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
@@ -124,11 +121,7 @@ export class MainComponent {
         const freq = dist * 10;
         this.soundStatus = new SoundStatus(freq, dist);
 
-        if (!this.playing) {
-          osc.start();
-          this.playing = true;
-        }
-        osc.frequency.value = freq;
+        this.audio.changePitch(freq);
       }
 
       // Device status

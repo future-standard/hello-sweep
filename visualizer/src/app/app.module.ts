@@ -7,6 +7,7 @@ import { DialogComponent } from './main/dialog/dialog.component';
 import { DeviceComponent } from './main/dialog/device/device.component';
 import { SoundComponent } from './main/dialog/sound/sound.component';
 import { SweepService } from "./sweep.service";
+import { AudioService } from "./audio.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,10 @@ import { SweepService } from "./sweep.service";
   imports: [
     BrowserModule
   ],
-  providers: [SweepService],
+  providers: [
+    SweepService,
+    AudioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
