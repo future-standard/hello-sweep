@@ -40,3 +40,5 @@ dist
 
 # awcache
 .awcache
+
+.vscode
