@@ -30,4 +30,15 @@ export class SweepService {
     });
   }
 
+  send(data: any): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      try {
+        this.ws.send(data);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
 }

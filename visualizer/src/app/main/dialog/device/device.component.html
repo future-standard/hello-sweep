@@ -25,24 +25,13 @@
       </tbody>
     </table>
     <h3 class="card-subtitle mb-2 text-muted">Change settings</h3>
-    <select class="custom-select">
+    <select (change)="onSamplingRateChange($event.target.value)" class="custom-select">
       <option selected>Sampling Rate</option>
-      <option value="500">500[Hz] (default)</option>
-      <option value="750">750[Hz]</option>
-      <option value="1000">1000[Hz]</option>
+      <option *ngFor="let rate of availableSamplingRate">{{rate}}[Hz]</option>
     </select>
-    <select class="custom-select">
+    <select (change)="onSpeedChange($event.target.value)" class="custom-select">
       <option selected>Speed</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (default)</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
+      <option *ngFor="let speed of availableSpeed">{{speed}}</option>
+     </select>
   </div>
 </div>

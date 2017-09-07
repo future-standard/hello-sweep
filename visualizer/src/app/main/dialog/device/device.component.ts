@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DeviceStatus } from '../../../../models/devicestatus'
 
+import { SweepService } from "../../../sweep.service";
+
 @Component({
   selector: 'app-device',
   templateUrl: './device.component.html',
@@ -9,9 +11,32 @@ import { DeviceStatus } from '../../../../models/devicestatus'
 export class DeviceComponent implements OnInit {
   @Input() status: DeviceStatus;
 
-  constructor() { }
+  private availableSamplingRate = [500, 750, 1000];
+  private availableSpeed = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  constructor(public sweep: SweepService) { }
 
   ngOnInit() {
+  }
+
+  onSamplingRateChange(value: string) {
+    const n = parseInt(value, 10);
+    if (n) {
+      this.sweep.send(JSON.stringify({
+        'sampleRate': n
+      }))
+      .catch(error => console.error('error while sending', error));
+    }
+  }
+
+  onSpeedChange(value: string) {
+    const n = parseInt(value, 10);
+    if (n) {
+      this.sweep.send(JSON.stringify({
+          'motorSpeed': n
+      }))
+      .catch(error => console.error('error while sending', error));;
+    }
   }
 
 }

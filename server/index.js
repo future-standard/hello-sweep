@@ -12,9 +12,9 @@ const sweepjs = require(process.env.SWEEPJS_DIR);
 const sweep = new sweepjs.Sweep('/dev/ttyUSB0');
 
 // Check device status
-const ready = sweep.getMotorReady(); // true if device is ready (calibration routine complete + motor speed stabilized)
-const speed = sweep.getMotorSpeed(); // integer value between 0:10 (in HZ)
-const rate  = sweep.getSampleRate(); // integer value, either 500, 750 or 1000 (in HZ)
+let ready = sweep.getMotorReady(); // true if device is ready (calibration routine complete + motor speed stabilized)
+let speed = sweep.getMotorSpeed(); // integer value between 0:10 (in HZ)
+let rate  = sweep.getSampleRate(); // integer value, either 500, 750 or 1000 (in HZ)
 
 sweep.startScanning();
 
@@ -22,6 +22,30 @@ sweep.startScanning();
 const wss = require('ws').Server({port: 5000});
 
 wss.on('connection', ws => {
+  ws.on('message', data => {
+    const msg = JSON.parse(data);
+
+    if (msg.motorSpeed || msg.sampleRate) {
+      sweep.stopScanning();
+      try {
+        if (msg.motorSpeed) {
+          sweep.setMotorSpeed(msg.motorSpeed);
+        } else {
+          sweep.setSampleRate(msg.sampleRate);
+        }
+      } catch (error) {
+        console.error(error);
+        process.exit(1);
+      }
+
+      // Update device status
+      ready = sweep.getMotorReady();
+      speed = sweep.getMotorSpeed();
+      rate  = sweep.getSampleRate();
+      sweep.startScanning();
+    }
+  });
+
   serve(ws);
 });
 
