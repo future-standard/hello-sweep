@@ -4,9 +4,12 @@ import { Injectable } from '@angular/core';
 export class AudioService {
   private context = new AudioContext();
   private osc = this.context.createOscillator();
+  private gain = this.context.createGain();
+  private lastGain: number;
 
   constructor() {
-    this.osc.connect(this.context.destination);
+    this.osc.connect(this.gain);
+    this.gain.connect(this.context.destination);
   }
 
   play() {
@@ -29,7 +32,17 @@ export class AudioService {
     this.osc.disconnect();
     this.osc = this.context.createOscillator();
     this.osc.type = type;
-    this.osc.connect(this.context.destination);
+    this.osc.connect(this.gain);
+    this.gain.connect(this.context.destination);
     this.play();
+  }
+
+  mute() {
+    this.lastGain = this.gain.gain.value;
+    this.gain.gain.value = 0;
+  }
+
+  unmute() {
+    this.gain.gain.value = this.lastGain;
   }
 }

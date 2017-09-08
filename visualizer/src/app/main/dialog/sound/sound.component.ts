@@ -11,6 +11,8 @@ import { AudioService } from "../../../audio.service";
 export class SoundComponent {
   @Input() status: SoundStatus;
   private availableSoundType = this.audio.availableSoundType;
+  private mute = false;
+  private muteOrUnmute = 'mute';
 
   constructor(public audio: AudioService) { }
 
@@ -19,6 +21,18 @@ export class SoundComponent {
 
   onSoundTypeSelect(type: string) {
     this.audio.changeType(type);
+  }
+
+  onClick() {
+    if (this.mute) {
+      this.audio.unmute();
+      this.muteOrUnmute = 'mute';
+    } else {
+      this.audio.mute();
+      this.muteOrUnmute = 'unmute';
+    }
+
+    this.mute = !this.mute;
   }
 
 }
