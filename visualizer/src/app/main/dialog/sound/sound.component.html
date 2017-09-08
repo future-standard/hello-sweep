@@ -21,9 +21,11 @@
       </tbody>
     </table>
     <h3 class="card-subtitle mb-2 text-muted">Change settings</h3>
-    <div class="volume">
-      <label for="sound-volume">Volume</label>
-      <input type="range" id="sound-volume">
+    <div class="setting">
+      <select (change)="onSoundTypeSelect($event.target.value)" class="custom-select">
+        <option selected>Sound Type</option>
+        <option *ngFor="let type of availableSoundType">{{type}}</option>
+       </select>
     </div>
   </div>
 </div>

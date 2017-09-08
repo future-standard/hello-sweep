@@ -16,4 +16,20 @@ export class AudioService {
   changePitch(freq=442) {
     this.osc.frequency.value = freq;
   }
+
+  get availableSoundType() {
+    return ['sine', 'square', 'sawtooth', 'triangle'];
+  }
+
+  changeType(type: any) {
+    if (!this.availableSoundType.includes(type)) {
+      return;
+    }
+    this.osc.stop();
+    this.osc.disconnect();
+    this.osc = this.context.createOscillator();
+    this.osc.type = type;
+    this.osc.connect(this.context.destination);
+    this.play();
+  }
 }
