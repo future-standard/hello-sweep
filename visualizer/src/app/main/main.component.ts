@@ -77,6 +77,9 @@ export class MainComponent {
     let dots = [];
     this.sweep.msg.first(msg => msg.degree && msg.distance, this.audio.play());
     this.sweep.msg.subscribe(msg => {
+      // Device status
+      this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
+
 	    const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
 	    const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
 
@@ -123,9 +126,6 @@ export class MainComponent {
 
         this.audio.changePitch(freq);
       }
-
-      // Device status
-      this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
     });
   }
 
