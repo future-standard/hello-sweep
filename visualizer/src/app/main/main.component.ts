@@ -42,7 +42,8 @@ export class MainComponent {
   ngAfterViewInit() {
     this.scene = new THREE.Scene();
 
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const gridSize = 1000;
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, gridSize * 2);
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -50,10 +51,26 @@ export class MainComponent {
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement); // Add orbit controll function
 
+    // Add plane for adjusting pitch & volume
+    const planeWidth = 30;
+    const pitchGeo = new THREE.PlaneBufferGeometry(gridSize, planeWidth, 8, 8);
+    const pitchMat = new THREE.MeshBasicMaterial({ color: 0x000033, side: THREE.DoubleSide });
+    const pitchPlane = new THREE.Mesh(pitchGeo, pitchMat);
+    pitchPlane.rotateX(- Math.PI / 2);
+
+    this.scene.add(pitchPlane);
+
+    const volumeGeo = new THREE.PlaneBufferGeometry(planeWidth, gridSize, 8, 8);
+    const volumeMat = new THREE.MeshBasicMaterial({ color: 0x330000, side: THREE.DoubleSide });
+    const volumePlane = new THREE.Mesh(volumeGeo, volumeMat);
+    volumePlane.rotateX(- Math.PI / 2);
+
+    this.scene.add(volumePlane);
+
     let axis = new THREE.AxisHelper(10);
     this.scene.add(axis);
 
-    let grid = new THREE.GridHelper(1000, 10, new THREE.Color(0x0000ff));
+    let grid = new THREE.GridHelper(gridSize, 10, new THREE.Color(0x0000ff));
     this.scene.add(grid);
 
     let light = new THREE.DirectionalLight(0xffffff, 1.0);
@@ -100,31 +117,24 @@ export class MainComponent {
         this.scene.add(dot);
         dots.push(dot);
 
-        // Change pitch
-        let nearestDot = dots
-        // Remove dots which are too close to device(center)
-        .filter(dot => {
-          const bbox = new THREE.Box3().setFromObject(dot);
-          return bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0)) > 3;
-        })
-        .sort((a, b) => {
-          const bboxA = new THREE.Box3().setFromObject(a);
-          const bboxB = new THREE.Box3().setFromObject(b);
-          let toA: number = bboxA.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
-          let toB: number = bboxB.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
-          return toA - toB
-        })[0];
-
-        if (!nearestDot) {
+        // Change pitch if a dot is on the pitchPlane
+        const dist = this.calcDist(dots, planeWidth, 'pitch');
+        if (!dist) {
           return;
         }
-        const bbox = new THREE.Box3().setFromObject(nearestDot);
 
-        const dist = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
         const freq = dist * 10;
         this.soundStatus = new SoundStatus(freq, dist);
 
         this.audio.changePitch(freq);
+
+        // Change pitch if a dot is on the pitchPlane
+        const d = this.calcDist(dots, planeWidth, 'volume');
+        if (!d) {
+          return;
+        }
+
+        this.audio.changeVolume(d / 30);
       }
     });
   }
@@ -139,5 +149,34 @@ export class MainComponent {
 	  this.controls.update();
 	  this.render();
   };
+
+  calcDist(dots: any[], planeWidth: number, laneType: string): number {
+    const nearestDotOnPlane = dots
+    .filter(dot => {
+      const bbox = new THREE.Box3().setFromObject(dot);
+      const pos = laneType === 'pitch' ? bbox.getCenter().x : bbox.getCenter().y;
+      return Math.abs(pos) < planeWidth / 2;
+    })
+    // Remove dots which are too close to device(center)
+    .filter(dotOnVolumePlane => {
+      const bbox = new THREE.Box3().setFromObject(dotOnVolumePlane);
+      return bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0)) > 3;
+    })
+    .sort((a, b) => {
+      const bboxA = new THREE.Box3().setFromObject(a);
+      const bboxB = new THREE.Box3().setFromObject(b);
+      const toA: number = bboxA.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+      const toB: number = bboxB.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+      return toA - toB;
+    })[0];
+
+    if (!nearestDotOnPlane) {
+      return undefined;
+    }
+    const bbox = new THREE.Box3().setFromObject(nearestDotOnPlane);
+
+    const dist = bbox.getCenter().distanceTo(new THREE.Vector3(0, 0, 0));
+    return dist;
+  }
 
 }

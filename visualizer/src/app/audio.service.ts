@@ -45,4 +45,8 @@ export class AudioService {
   unmute() {
     this.gain.gain.value = this.lastGain;
   }
+
+  changeVolume(gain: number) {
+    this.gain.gain.value = gain;
+  }
 }
