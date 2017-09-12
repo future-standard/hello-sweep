@@ -9,7 +9,7 @@
   width: 100%;
   height: auto;
   color: whitesmoke;
-  opacity: 0.8;
+  opacity: 0.6;
   /*
   rendererのサイズはウインドウサイズに依存するため、
   dialogのサイズがウインドウサイズより大きい場合はスクロールできるようにする

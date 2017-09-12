@@ -47,6 +47,10 @@ export class AudioService {
   }
 
   changeVolume(gain: number) {
+    // Muted
+    if (this.gain.gain.value === 0) {
+      return;
+    }
     this.gain.gain.value = gain;
   }
 }
