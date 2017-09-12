@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AudioService {
@@ -6,6 +7,7 @@ export class AudioService {
   private osc = this.context.createOscillator();
   private gain = this.context.createGain();
   private lastGain: number;
+  public gainValue = new BehaviorSubject<number>(undefined);
 
   constructor() {
     this.osc.connect(this.gain);
@@ -40,10 +42,12 @@ export class AudioService {
   mute() {
     this.lastGain = this.gain.gain.value;
     this.gain.gain.value = 0;
+    this.gainValue.next(0);
   }
 
   unmute() {
     this.gain.gain.value = this.lastGain;
+    this.gainValue.next(this.lastGain);
   }
 
   changeVolume(gain: number) {
@@ -52,5 +56,6 @@ export class AudioService {
       return;
     }
     this.gain.gain.value = gain;
+    this.gainValue.next(gain);
   }
 }

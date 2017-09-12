@@ -11,25 +11,31 @@ import { AudioService } from '../../../audio.service';
 export class SoundComponent {
   @Input() status: SoundStatus;
   private availableSoundType = this.audio.availableSoundType;
-  private mute = false;
+  private muted = false;
   private muteOrUnmute = 'mute';
 
-  constructor(public audio: AudioService) { }
+  constructor(public audio: AudioService) {
+    audio.gainValue.subscribe(gain => {
+      if (gain > 0) {
+        this.muted = false;
+        this.muteOrUnmute = 'mute';
+      } else {
+        this.muted = true;
+        this.muteOrUnmute = 'unmute';
+      }
+    });
+  }
 
   onSoundTypeSelect(type: string) {
     this.audio.changeType(type);
   }
 
   onClick() {
-    if (this.mute) {
+    if (this.muted) {
       this.audio.unmute();
-      this.muteOrUnmute = 'mute';
     } else {
       this.audio.mute();
-      this.muteOrUnmute = 'unmute';
     }
-
-    this.mute = !this.mute;
   }
 
 }
