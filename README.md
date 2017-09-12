@@ -2,6 +2,8 @@
 
 超小型LiDARデバイス[sweep](http://scanse.io/)でテルミンをつくる :sound:
 
+![screenshot](./README-ASSETS/screenshot.png)
+
 ## Architecture
 
 ![arch](./README-ASSETS/arch.png)
