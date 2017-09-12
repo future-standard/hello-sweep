@@ -110,7 +110,7 @@ export class MainComponent {
       }
 
       // Plot point
-      if (x && y) {
+      if (x && y && Math.abs(x) < gridSize / 2 && Math.abs(y) < gridSize / 2) {
         const dotGeometry = new THREE.Geometry();
         dotGeometry.vertices.push(new THREE.Vector3(x, 0, y));
         const dotMaterial = new THREE.PointsMaterial( { size: 3, sizeAttenuation: false } );
