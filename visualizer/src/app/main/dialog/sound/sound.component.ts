@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { SoundStatus } from "../../../../models/soundstatus";
+import { SoundStatus } from '../../../../models/soundstatus';
 
-import { AudioService } from "../../../audio.service";
+import { AudioService } from '../../../audio.service';
 
 @Component({
   selector: 'app-sound',
@@ -15,9 +15,6 @@ export class SoundComponent {
   private muteOrUnmute = 'mute';
 
   constructor(public audio: AudioService) { }
-
-  ngOnInit() {
-  }
 
   onSoundTypeSelect(type: string) {
     this.audio.changeType(type);

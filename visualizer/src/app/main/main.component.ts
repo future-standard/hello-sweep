@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import * as THREE from 'three';
-import { DeviceStatus } from "../../models/devicestatus";
-import { SoundStatus } from "../../models/soundstatus";
-import { SweepService } from "../sweep.service";
-import { AudioService } from "../audio.service";
+import { DeviceStatus } from '../../models/devicestatus';
+import { SoundStatus } from '../../models/soundstatus';
+import { SweepService } from '../sweep.service';
+import { AudioService } from '../audio.service';
 import 'rxjs/add/operator/first';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
@@ -37,8 +37,9 @@ export class MainComponent {
   deg2rad(degrees: number) {
     const kDegreeToRadian = 0.017453292519943295;
     return degrees * kDegreeToRadian;
-  };
+  }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
     this.scene = new THREE.Scene();
 
@@ -67,17 +68,17 @@ export class MainComponent {
 
     this.scene.add(volumePlane);
 
-    let axis = new THREE.AxisHelper(10);
+    const axis = new THREE.AxisHelper(10);
     this.scene.add(axis);
 
-    let grid = new THREE.GridHelper(gridSize, 10, new THREE.Color(0x0000ff));
+    const grid = new THREE.GridHelper(gridSize, 10, new THREE.Color(0x0000ff));
     this.scene.add(grid);
 
-    let light = new THREE.DirectionalLight(0xffffff, 1.0);
+    const light = new THREE.DirectionalLight(0xffffff, 1.0);
     light.position.set(100, 100, 100);
     this.scene.add(light);
 
-    let light2 = new THREE.DirectionalLight(0xffffff, 1.0);
+    const light2 = new THREE.DirectionalLight(0xffffff, 1.0);
     light2.position.set(-100, 100, -100);
     this.scene.add(light2);
 
@@ -97,15 +98,15 @@ export class MainComponent {
       // Device status
       this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
 
-	    const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
-	    const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
+      const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
+      const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
 
       // Reset last result
       if (msg.removeFromScene) {
         dots.forEach(s => {
           this.removeFromScene(s);
         });
-        dots　= [];
+        dots = [];
       }
 
       // Plot point
@@ -140,15 +141,15 @@ export class MainComponent {
   }
 
   render() {
-    let timer = 0.002 * Date.now();
+    const timer = 0.002 * Date.now();
     this.renderer.render(this.scene, this.camera);
   }
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));
-	  this.controls.update();
-	  this.render();
-  };
+    this.controls.update();
+    this.render();
+  }
 
   calcDist(dots: any[], planeWidth: number, laneType: string): number {
     const nearestDotOnPlane = dots
