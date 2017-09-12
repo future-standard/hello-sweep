@@ -15,7 +15,7 @@
 
 - [Sweep SDK](https://github.com/scanse/sweep-sdk)が動作する環境であること。
 
-- yarnが[インストール](https://yarnpkg.com/lang/en/docs/install/)されていること
+- yarnが[インストール](https://yarnpkg.com/lang/en/docs/install/)されていること。
 
 ## Install
 
