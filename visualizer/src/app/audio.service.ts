@@ -7,7 +7,7 @@ export class AudioService {
   private osc = this.context.createOscillator();
   private gain = this.context.createGain();
   private lastGain: number;
-  public gainValue = new BehaviorSubject<number>(undefined);
+  public gainValue = new BehaviorSubject<number>(this.gain.gain.value);
 
   constructor() {
     this.osc.connect(this.gain);
