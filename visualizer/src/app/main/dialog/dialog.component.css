@@ -1,37 +1,6 @@
 .dialog {
-  position: absolute;
-  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 13;
-	margin: 0 auto;
-  width: 100%;
-  height: auto;
   color: whitesmoke;
-  opacity: 0.6;
-  /*
-  rendererのサイズはウインドウサイズに依存するため、
-  dialogのサイズがウインドウサイズより大きい場合はスクロールできるようにする
-  */
-  overflow-y: scroll;
-}
-
-.container {
-  position: relative;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.hide-dialog {
-  bottom: auto;
-  padding: 2%;
-}
-
-.red {
-  color: red;
-}
-
-.blue {
-  color: blue;
 }

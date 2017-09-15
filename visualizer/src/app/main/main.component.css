@@ -1,0 +1,11 @@
+.main-container {
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: row;
+  align-items: stretch;
+}
+
+app-dialog, app-renderer {
+  flex: 1 1 50%;
+}
