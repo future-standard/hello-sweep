@@ -1,11 +1,23 @@
 .main-container {
-  width: 100%;
+  width: 90%;
+  height: 90%;
+  margin: 1.5em auto 1.5em auto;
   display: flex;
   display: -webkit-flex;
   flex-flow: row;
   align-items: stretch;
+  padding: 2.0em;
 }
 
 app-dialog, app-renderer {
   flex: 1 1 50%;
+}
+
+h1 {
+  color: whitesmoke;
+  padding: 1rem;
+}
+
+* {
+  background-color: black;
 }
