@@ -18,7 +18,7 @@ export class AudioService {
     this.osc.start();
   }
 
-  changePitch(freq=442) {
+  changePitch(freq = 442) {
     this.osc.frequency.value = freq;
   }
 
