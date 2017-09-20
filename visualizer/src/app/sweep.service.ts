@@ -1,12 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-
+import { SweepMessage } from '../models/message';
 
 @Injectable()
 export class SweepService {
   // msg を流すObservableをつくる
-  public msg: Observable<any>;
+  public msg: Observable<SweepMessage>;
   private ws: WebSocket;
 
   constructor(private zone: NgZone) {

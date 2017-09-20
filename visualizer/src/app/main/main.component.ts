@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { DeviceStatus } from '../../models/devicestatus';
 import { SoundStatus } from '../../models/soundstatus';
 import { rendererSetting } from '../../models/renderersetting';
+import { SweepMessage } from '../../models/message';
 import { SweepService } from '../sweep.service';
 import { AudioService } from '../audio.service';
 
@@ -12,7 +13,7 @@ import { AudioService } from '../audio.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  msg: any;
+  msg: SweepMessage;
   deviceStatus: DeviceStatus;
   soundStatus:  SoundStatus;
 

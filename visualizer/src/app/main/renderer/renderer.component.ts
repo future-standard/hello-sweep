@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, Input, OnChanges } from '@angular/cor
 import * as THREE from 'three';
 const OrbitControls = require('three-orbit-controls')(THREE);
 import { rendererSetting } from '../../../models/renderersetting';
+import { SweepMessage } from '../../../models/message';
 
 @Component({
   selector: 'app-renderer',
@@ -12,7 +13,7 @@ export class RendererComponent implements OnChanges {
 
   @ViewChild('rendererContainer') rendererContainer: ElementRef;
 
-  @Input() msg: any;
+  @Input() msg: SweepMessage;
   dots = [];
   scene:    THREE.Scene;
   camera:   THREE.Camera;
