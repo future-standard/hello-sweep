@@ -3,11 +3,15 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AudioService {
+  public static readonly DEFAULT_GAIN_VALUE: number = 1.0;
+  public static readonly DEFAULT_FREQ_VALUE: number = 442;
+
   private context = new AudioContext();
   private osc = this.context.createOscillator();
   private gain = this.context.createGain();
   private lastGain: number;
-  public gainValue = new BehaviorSubject<number>(this.gain.gain.value);
+
+  public gainValue = new BehaviorSubject<number>(AudioService.DEFAULT_GAIN_VALUE);
 
   constructor() {
     this.osc.connect(this.gain);
@@ -18,7 +22,7 @@ export class AudioService {
     this.osc.start();
   }
 
-  changePitch(freq = 442) {
+  changePitch(freq = AudioService.DEFAULT_FREQ_VALUE) {
     this.osc.frequency.value = freq;
   }
 
