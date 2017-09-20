@@ -30,7 +30,11 @@ export class MainComponent {
         return;
       }
 
-      this.deviceStatus = new DeviceStatus(msg.ready, msg.speed, msg.rate);
+      this.deviceStatus = {
+        ready: msg.ready,
+        speed: msg.speed,
+        rate: msg.rate
+      };
 
       const x = Math.cos(this.deg2rad(msg.degree)) * msg.distance;
       const y = Math.sin(this.deg2rad(msg.degree)) * msg.distance;
@@ -45,7 +49,10 @@ export class MainComponent {
         }
 
         const freq = dist * 10;
-        this.soundStatus = new SoundStatus(freq, dist);
+        this.soundStatus = {
+          frequency: freq,
+          distance: dist
+        };
 
         this.audio.changePitch(freq);
 
