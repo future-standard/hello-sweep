@@ -5,7 +5,6 @@ import { SoundStatus } from '../../models/soundstatus';
 import { rendererSetting } from '../../models/renderersetting';
 import { SweepService } from '../sweep.service';
 import { AudioService } from '../audio.service';
-import 'rxjs/add/operator/first';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +18,6 @@ export class MainComponent {
 
   constructor(public sweep: SweepService, public audio: AudioService) {
     const dots: {x: number, y: number}[] = [];
-    this.sweep.msg.first(msg => msg.degree && msg.distance, this.audio.play());
     this.sweep.msg.subscribe(msg => {
       // Pass to child component
       this.msg = msg;
@@ -55,6 +53,12 @@ export class MainComponent {
         };
 
         this.audio.changePitch(freq);
+        // Already playing, do nothing
+        try {
+          this.audio.play();
+        } catch (error) {
+          return;
+        }
 
         // Change pitch if a dot is on the volumePlane
         const d = this.calcDist(dots, rendererSetting.planeWidth, 'volume');
